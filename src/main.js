@@ -14,6 +14,7 @@ renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
 
 // Scene
 const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xffffff);
 
 // Boundary
 const boundary = {
@@ -33,8 +34,12 @@ const camera = new THREE.PerspectiveCamera(
 scene.add(camera);
 
 // Light
-const ambientLight = new THREE.AmbientLight('white', 0.5);
-scene.add(ambientLight);
+// const ambientLight = new THREE.AmbientLight('white', 6);
+// scene.add(ambientLight);
+
+const hemLight = new THREE.HemisphereLight(0xeeeeff, 0x777788, 5.1);
+hemLight.position.set( 0.5, 1, 0.75 );
+scene.add( hemLight );
 
 const directionalLight = new THREE.DirectionalLight('white', 1);
 directionalLight.position.x = 1;
@@ -75,8 +80,8 @@ const walk = (delta) => {
 		controls.moveRight(0.02);
 	};
 	if(keyController.keys['Space']){
-		if (canJump) velocity.y +=  5;
-		// velocity.y +=  0.5; // 연속 점프
+		// if (canJump) velocity.y +=  5;
+		velocity.y +=  0.5; // 연속 점프
 		canJump = false;
 	};
 
